@@ -1,12 +1,11 @@
 import './Topbar.css';
-import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { Context } from '../../context/Context';
 
 export default function Topbar() {
 	const { user, dispatch } = useContext(Context);
-	const PF = 'http://localhost:5000/images/';
+	const PF = 'https://blog-app-mahin.herokuapp.com/images/';
 
 	const handleLogout = () => {
 		dispatch({ type: 'LOGOUT' });
@@ -18,14 +17,13 @@ export default function Topbar() {
 				<div className='item'>
 					<a href='/' className='link'>
 						<div className='logo-section-left'>
-							<img className='img-logo' src={logo} alt='logo' />
 							<p
 								style={{
 									fontSize: 'x-large',
 									marginLeft: '5px',
 								}}
 							>
-								MyWays
+								My Blogs
 							</p>
 						</div>
 					</a>
