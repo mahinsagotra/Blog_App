@@ -9,10 +9,19 @@ const postRoute = require('./routes/posts')
 const categoriesRoute = require('./routes/categories')
 const multer = require("multer");
 const path = require("path");
+const rateLimiter = require('express-rate-limit')
+
+const limiter = rateLimiter({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 10, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
 
 dotenv.config()
 app.use(express.json())
 app.use("/images", express.static(path.join(__dirname, "/images")))
+app.use(limiter)
 
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
